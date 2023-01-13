@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xamarinform="clr-namespace:XamarinForm"
+             x:Class="XamarinForm.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xamarinform:BooleanToColorConverter TrueColor="LightGreen" FalseColor="White" x:Key="ColorConvert"/>
+            <xamarinform:BooleanToContentConverter Content="X" x:Key="ContentConvert"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button>
+
+        </Button>
+        <CollectionView ItemsSource="{Binding Items}" x:Name="collectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="5" BorderColor="Black" BackgroundColor="{Binding Path=IsChecked, Converter={StaticResource ColorConvert}}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Padding="0" Margin="0,0,0,0" FontSize="20" Grid.Column="0" TextColor="Black" Text="{Binding Name}"/>
+                            <Button ImageSource="@drawable/Trash" Grid.Column="1" Clicked="Button_Clicked"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Entry x:Name="nameEntry" Grid.Column="0" Margin="3"/>
+            <Button Text="+" Font="25" Grid.Column="1" Margin="3" Clicked="add_Clicked"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>
